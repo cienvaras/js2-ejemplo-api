@@ -1,4 +1,4 @@
-# Plantilla de proyectos para el curso de Javascript 2 en el [CETAV](http://parquelalibertad.org/cetav/)
+# Ejemplo sencillo de comunicación con API web con Javascript
 
 ## Requerimientos
 
@@ -10,3 +10,7 @@
 npm install
 npm run dev
 ```
+
+## API utilizada
+
+https://rickandmortyapi.com/
