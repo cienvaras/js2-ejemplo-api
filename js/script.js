@@ -6,23 +6,26 @@
 function addCharacters(characters) {
   // Obtiene el elemento de la lista de personajes.
   const characterList = document.getElementById('character-list');
+  // Se limpia la lista de personajes antes de agregar los nuevos.
+  characterList.innerHTML = '';
+  // Se hace scroll a la parte superior de la ventana.
+  window.scroll(0, 0);
   // Itera sobre los personajes.
   for (let i = 0; i < characters.length; i += 1) {
     // Item de la lista.
     const listItem = document.createElement('li');
     characterList.appendChild(listItem);
-    // Nombre del personaje.
-    const characterName = document.createElement('h2');
-    characterName.innerHTML = characters[i].name;
-    listItem.appendChild(characterName);
-    // Especie.
-    const species = document.createElement('p');
-    species.innerHTML = characters[i].species;
-    listItem.appendChild(species);
-    // Imagen.
-    const picture = document.createElement('img');
-    picture.setAttribute('src', characters[i].image);
-    listItem.appendChild(picture);
+    // Se crea un string con el HTML de la ficha de cada personaje.
+    const content = `
+      <div class="left">
+        <img src="${characters[i].image}" alt="Foto de ${characters[i].name}" />
+      </div>
+      <div class="right">
+        <h2 class="character-name">${characters[i].name}</h2>
+        <p>${characters[i].species}</p>
+      </div>
+    `;
+    listItem.innerHTML = content;
   }
 }
 
@@ -33,6 +36,7 @@ let nextPage = '';
 fetch('https://rickandmortyapi.com/api/character')
   .then((response) => response.json())
   .then((data) => {
+    console.log(data);
     // Add characters to list.
     addCharacters(data.results);
     // Save the next page URL.
@@ -45,6 +49,7 @@ loadMore.addEventListener('click', () => {
   fetch(nextPage)
     .then((response) => response.json())
     .then((data) => {
+      console.log(data);
       // Add characters to list.
       addCharacters(data.results);
       // Save the next page URL.
